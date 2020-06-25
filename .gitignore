@@ -3,7 +3,11 @@
 /build/
 /build/classes/java/main/
 /.idea/
-/gradle/
 .idea/vcs.xml
 src/main/resources/
 src/test/
+/build.gradle
+/gradlew
+/gradlew.bat
+/settings.gradle
+/gradle/
