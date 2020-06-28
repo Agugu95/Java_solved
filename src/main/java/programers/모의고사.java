@@ -1,7 +1,9 @@
 package programers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class 모의고사 {
     public int[] solution(int[] answers) {
@@ -10,7 +12,7 @@ public class 모의고사 {
         int[] num1 = new int[]{1, 2, 3, 4, 5};
         int[] num2 = new int[]{2, 1, 2, 3, 2, 4, 2, 5};
         int[] num3 = new int[]{3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
-        for(int i = 0; i < answers.length; i++) {
+        for (int i = 0; i < answers.length; i++) {
             if (answers[i] == num1[i]) {
                 temp[0]++;
             }
@@ -21,22 +23,25 @@ public class 모의고사 {
                 temp[2]++;
             }
         }
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(temp[0], 1);
-        map.put(temp[1], 2);
-        map.put(temp[2], 3);
-        Arrays.sort(temp);
-        if (temp[0] <= temp[1] && temp[1] <= temp[2]) {
-            answer = new int[]{map.get(temp[0]), map.get(temp[1]), map.get(temp[2])};
-        } else if (temp[0] <= temp[1]) {
-            answer = new int[]{map.get(temp[1]), map.get(temp[2])};
-        } else {
-            answer = new int[]{map.get(temp[1])};
+
+        int winner = temp[0];
+        for (int value : temp) {
+            if (winner < value) {
+                winner = value;
+            }
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < temp.length; i++) {
+            if (winner == temp[i]) {
+                list.add(i);
+            }
+        }
+        answer = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            answer[i] = list.get(i) + 1;
         }
         return answer;
     }
-
-    public static void main(String[] args) {
-
-    }
 }
+
