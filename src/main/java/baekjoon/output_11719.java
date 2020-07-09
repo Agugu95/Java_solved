@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class output_11719 {
-    public static void main(String args[]){
+    public static void main(String[] args){
         ArrayList<String> words = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         while(sc.hasNextLine()) {
