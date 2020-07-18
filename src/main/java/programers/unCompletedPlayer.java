@@ -1,13 +1,12 @@
 package programers;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class unCompletedPlayer {
     public String solution(String[] participant, String[] completion) {
         String answer = "";
         int count = 0;
-        Map<String, Integer> hashMap = new HashMap<>();
+        HashMap<String, Integer> hashMap = new HashMap<>();
 
         for (String name : participant) { // 참가자 체크, 해시맵 삽입
             if (hashMap.get(name) == null) {
