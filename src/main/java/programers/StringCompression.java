@@ -6,58 +6,49 @@ import java.util.Scanner;
 
 public class StringCompression {
     public static int solution(String str) {
-        int answer = str.length();
+        int min = str.length();
 
         for (int i = 1; i <= str.length() / 2; i++) {
-            int result = check(str, i);
-            if (result < answer) answer = result;
+            int comp = compression(str, i).length();
+            min = Math.min(min, comp);
         }
-        return answer;
+        return min;
     }
 
-    public static int check(String str, int size) {
-        StringBuilder result = new StringBuilder();
-        List<String> word = new ArrayList<>();
+    public static String compression(String str, int i) {
+        int count = 1;
+        StringBuilder comp = new StringBuilder();
+        String sliced = "";
 
-        int exist = str.length() % size;
+        for (int j = 0; j <= str.length() + i; j += i) {
+            String now;
 
-        for (int i = 0; i <= str.length() - size; i += size) {
-            word.add(str.substring(i, i + size));
-        }
-
-        int cnt = 1;
-
-        for (int i = 0; i < word.size() - 1; i++) {
-            if (word.get(i).equals(word.get(i + 1))) {
-                cnt++;
+            if (j >= str.length()) {
+                now = "";
+            } else if (str.length() < j + i) {
+                now = str.substring(j);
             } else {
-                if (cnt > 1) {
-                    result.append(result);
-                    result.append(cnt);
-                    result.append(word.get(i));
+                now = str.substring(j, j + i);
+            }
+
+            if (j != 0) {
+                if (now.equals(sliced)) {
+                    count++;
+                } else if (count >= 2) {
+                    comp.append(comp).append(sliced);
+                    count = 1;
                 } else {
-                    result.append(result);
-                    result.append(word.get(i));
-                    cnt = 1;
+                    comp.append(sliced);
                 }
             }
+            sliced = now;
         }
-
-        if (cnt > 1) {
-            result.append(result);
-            result.append(cnt);
-            result.append(word.get(word.size() - 1));
-        } else {
-            result.append(result);
-            result.append(word.get(word.size() - 1));
-        }
-
-        return result.length() + exist;
+        return comp.toString();
     }
 
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String inputString = sc.nextLine();
-        System.out.println(solution(inputString));
+        System.out.println(solution("aabbaccc"));
+        System.out.println(solution("ababcdcdababcdcd"));
     }
 }
